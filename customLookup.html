@@ -1,0 +1,54 @@
+<template>
+  <label if:true={showPill}><span class="label-font">{label}</span></label>
+  <div if:true={showPill} class="slds-pill-container slds-m-bottom_x-small">
+    <!-- <span class="slds-pill slds-pill_link"> -->
+    <span class="slds-pill">
+      <!-- <a href="javascript:void(0);" class="slds-pill__action slds-text-align_left" title={selectedRecord.Name}> -->
+      <a href="javascript:void(0);" class="slds-p-left_small slds-text-align_left" title={selectedRecord.Name}>
+        <span class="slds-pill__label">{selectedRecord.Name}</span>
+      </a>
+      <lightning-button-icon icon-name="utility:close" onclick={clear}   variant="border-filled" alternative-text="Clear" class="slds-m-left_xx-small" title="Clear"></lightning-button-icon>
+
+    </span>
+    <!-- <lightning-pill style="width: 100%;" label={selectedRecord.Name} name="SelectedId" onremove={clear}>
+    </lightning-pill> -->
+  </div>
+  <div if:false={showPill} >
+    <lightning-input disabled={disableInput} type="search" value={searchKey} onchange={handleKeyChange} class=""
+      label={label}>
+    </lightning-input>
+  </div>
+  <template if:true={records}>
+    <div class="dropDown">
+      <template for:each={records} for:item="record">
+        <li value={record.Id} style="cursor: pointer;" class="SingleResult slds-m-around_small" key={record.Id}
+          onclick={addToSelected}>
+          <lightning-icon icon-name={iconName} size="small"></lightning-icon>&nbsp;{record.Name}
+        </li>
+      </template>
+    </div>
+  </template>
+  <template if:true={noRecords}>
+    <template if:true={loading}>
+      
+        <lightning-spinner class="slds-is-relative" variant="brand" alternative-text="Loading..." size="small">
+        </lightning-spinner>
+     
+    </template>
+    <template if:false={loading}>
+      
+        <div class="dropDown">
+          No results Found !
+        </div>
+     
+    </template>
+  </template>
+
+  <template if:true={selectedRecords}>
+    <template for:each={selectedRecords} for:item="record">
+      <lightning-pill name={record.Id} key={record.Id} label={record.Name} onremove={handleRemove}>
+        <lightning-icon icon-name={iconName} variant="circle" alternative-text={record.Name}></lightning-icon>
+      </lightning-pill>
+    </template>
+  </template>
+</template>
