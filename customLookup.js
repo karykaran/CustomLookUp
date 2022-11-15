@@ -45,7 +45,7 @@ export default class Lookup extends LightningElement {
       const filter = this.filters;
       console.log(JSON.stringify(filter));
       this.delayTimeout = setTimeout(() => {
-        searchRecords({ searchKey: searchKey, objectApiName: objectApiName, selectedIds: selectedIds, filters: filter , isUatPortal: this.isUatPortal ,userIdList:this.userIdList})
+        searchRecords({ searchKey: searchKey, objectApiName: objectApiName, selectedIds: selectedIds, filters: filter })
           .then((result) => {
             if (result && result.length) {
               this.noRecords = false;
